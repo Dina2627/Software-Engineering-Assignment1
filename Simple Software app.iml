@@ -1,11 +1,146 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+import java.util.Scanner;
+public class Main{
+
+    static String[] Student_Name = new String [100];
+    static int[] Student_ID = new int[100];
+    static double[] Student_GPA = new double[100];
+    static int count = 0;
+
+    static void Adding_Student(){
+        Scanner user = new Scanner(System.in);
+        System.out.print("Student name: ");
+        Student_Name[count] = user.nextLine();
+        System.out.print("Student ID: ");
+        Student_ID[count] = user.nextInt(); // 1454 and the count is equal 0
+        System.out.print("Enter Your GPA: ");
+        Student_GPA[count] = user.nextDouble();
+        System.out.println("Student Added!");
+        count++;
+    }
+
+    static void Deleting_Student(){
+        Scanner user = new Scanner(System.in);
+        System.out.print("Enter the Student ID for deleting: "); // 1454
+        int id = user.nextInt();
+        if(count==0){
+            System.out.println("There is no Student to delete");
+            return;
+        }
+        int index = -1;
+        for (int i=0;i<count;i++){
+            if(Student_ID[i]==id) {
+                index = i;
+                break;
+            }
+        }
+        if(index==-1){
+            System.out.println("The Student is Not found!");
+            return;
+        }
+        for (int j = index; j < count - 1; j++) {
+            Student_Name[j] = Student_Name[j + 1];
+            Student_ID[j] = Student_ID[j + 1];
+            Student_GPA[j] = Student_GPA[j + 1];
+        }
+
+
+        Student_Name[count - 1] = null;
+        Student_ID[count - 1] = 0;
+        Student_GPA[count - 1] = 0;
+
+        count--;
+
+        System.out.println("Student Deleted!");
+    }
+
+    static void Show_Student_info(){
+        Scanner user = new Scanner(System.in);
+         System.out.print("Enter Student ID: ");
+         int id = user.nextInt();
+         boolean flag = true;
+         for(int i=0;i<count;i++){
+             if(Student_ID[i]==id){
+                 System.out.println("Student Name: "+Student_Name[i]);
+                 System.out.println("Student ID: "+Student_ID[i]);
+                 System.out.println("Student GPA: "+Student_GPA[i]);
+                 break;
+             }
+             else if (Student_ID[i]!=id && i == count-1){
+                 flag = false;
+             }
+         }
+         if(!flag){
+             System.out.println("Student not founded!");
+         }
+
+    }
+
+    static void Update_Student_GPA(){
+        Scanner user = new Scanner(System.in);
+        System.out.print("Enter Student ID: ");
+        int id = user.nextInt();
+        boolean flag = true;
+        for(int i=0;i<count ;i++){
+            if(Student_ID[i]==id){
+                System.out.print("Enter the Updated GPA: ");
+                Student_GPA[i]= user.nextDouble();
+                System.out.println("Student GPA Updated!");
+                break;
+            }
+            else if (Student_ID[i]!=id && i == count-1){
+                flag = false;
+            }
+
+            if(!flag){
+                System.out.println("Student not founded!");
+            }
+
+        }
+
+    }
+    public static void main(String[] args){
+        System.out.println("This Software app for Student Information System");
+        while(true){
+
+            Scanner user = new Scanner(System.in);
+            System.out.println("1:Adding Student");
+            System.out.println("2:Deleting Student");
+            System.out.println("3:Show Student info");
+            System.out.println("4:Update Student GPA");
+            System.out.println("0:Exit");
+
+            int choose = user.nextInt();
+            switch(choose){
+                case 1 -> {
+                    Adding_Student();
+                    System.out.println("\n==========================================================================");
+                    System.out.println("Student Information System");
+                    System.out.println("==========================================================================\n");
+
+                }
+                case 2 -> {
+                    Deleting_Student();
+                    System.out.println("\n==========================================================================");
+                    System.out.println("Student Information System");
+                    System.out.println("==========================================================================\n");
+
+                }
+                case 3 ->{
+                    Show_Student_info();
+                    System.out.println("\n==========================================================================");
+                    System.out.println("Student Information System");
+                    System.out.println("==========================================================================\n");
+                }
+                case 4->{
+                    Update_Student_GPA();
+                    System.out.println("\n==========================================================================");
+                    System.out.println("Student Information System");
+                    System.out.println("==========================================================================\n");
+                }
+                case 0 -> {return;}
+
+            }
+        }
+
+    }
+}
